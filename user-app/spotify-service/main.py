@@ -1,18 +1,35 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 
 import spotipy
 import random
 from spotipy.oauth2 import SpotifyOAuth
 
-app = FastAPI()
+app = FastAPI() #start with `fastapi dev main.py`
+
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 sp_oauth = SpotifyOAuth(
     client_id="cf78bb1275bd4529a8678b9bada05c3a",
     client_secret="5bd5e4fed3d74d3196f634a71320b1cb",
     redirect_uri="http://127.0.0.1:8000/api/callback",
-    scope="user-library-read playlist-modify-private"
+    scope="user-library-read playlist-read-private playlist-read-collaborative"
 )
+
+sp = spotipy.Spotify(auth_manager=sp_oauth)
 
 session = {}
 
@@ -25,10 +42,18 @@ async def login():
 @app.get("/api/callback")
 async def callback(code):
     token_info = sp_oauth.get_access_token(code)
-    print(token_info)
-    print(session)
-    session["token_info", token_info]
+    session["token_info"] = sp_oauth.get_cached_token()
+    
+    return RedirectResponse("http://localhost:3000/start")
+    # session["token_info", token_info]
     # return RedirectResponse("/generate")  # Redirect to app's main page
+
+@app.get("/api/playlist")
+async def playlist():
+    return sp.current_user_playlists()
+
+    # json_compatible_item_data = jsonable_encoder(playlists)
+    # return JSONResponse(content=json_compatible_item_data)
 
 
 if __name__ == "__main__":
