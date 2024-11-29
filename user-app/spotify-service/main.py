@@ -43,17 +43,15 @@ async def login():
 async def callback(code):
     token_info = sp_oauth.get_access_token(code)
     session["token_info"] = sp_oauth.get_cached_token()
-    
     return RedirectResponse("http://localhost:3000/start")
-    # session["token_info", token_info]
-    # return RedirectResponse("/generate")  # Redirect to app's main page
 
 @app.get("/api/playlist")
 async def playlist():
     return sp.current_user_playlists()
 
-    # json_compatible_item_data = jsonable_encoder(playlists)
-    # return JSONResponse(content=json_compatible_item_data)
+@app.post("/api/startclustering/{id}")
+async def start_cluster(id):
+    return sp.playlist(id)
 
 
 if __name__ == "__main__":
