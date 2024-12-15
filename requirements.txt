@@ -1,4 +1,9 @@
 python-dotenv~=1.0.1
-requests~=2.32.3
-fastapi~=0.115.0
-uvicorn~=0.31.0
+spotipy~=2.24.0
+plotly~=5.24.1
+seaborn~=0.13.2
+matplotlib~=3.9.2
+pandas~=2.2.3
+scikit-learn~=1.5.2
+numpy~=2.0.2
+scikit-fuzzy~=0.5.0
