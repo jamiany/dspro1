@@ -12,3 +12,7 @@ Our project aims to develop a Spotify song clustering system. The goal is to tak
 
 
 Data: https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs
+
+## User Interface
+
+Link to mockup (Figma): https://www.figma.com/design/IhWmeorig6KSzmQKxUacmb/Spotify-Smart-Playlist?node-id=1-30&t=lOsyOzdGZmqjgHka-1
