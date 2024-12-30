@@ -9,7 +9,9 @@ df = pd.read_csv(filepath_or_buffer='data.csv', sep=',', index_col=0)
 df.drop(df.tail(1).index, inplace=True)
 
 
-def get_tracks(playlist_name: str) -> pd.DataFrame:
+def get_tracks(playlist_name: str, spotify = None) -> pd.DataFrame:
+    if spotify is not None:
+        sp = spotify
     # get the tracks from spotify
     results = sp.playlist_items(playlist_name)
 
