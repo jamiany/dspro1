@@ -8,6 +8,8 @@ import spotipy
 import random
 from spotipy.oauth2 import SpotifyOAuth
 
+from dspro1.data_preparation.data_extraction import get_tracks
+
 app = FastAPI() #start with `fastapi dev main.py`
 
 origins = [
@@ -51,7 +53,7 @@ async def playlist():
 
 @app.post("/api/startclustering/{id}")
 async def start_cluster(id):
-    return sp.playlist(id)
+    return get_tracks(id, sp)
 
 
 if __name__ == "__main__":
