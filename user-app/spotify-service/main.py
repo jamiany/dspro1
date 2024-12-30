@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import spotipy
 import random
 from spotipy.oauth2 import SpotifyOAuth
+from sklearn import cluster
 
 from dspro1.data_preparation.data_extraction import get_tracks
 
@@ -53,8 +54,19 @@ async def playlist():
 
 @app.post("/api/startclustering/{id}")
 async def start_cluster(id):
-    return get_tracks(id, sp)
+    df = get_tracks(id, sp)
+    df_features = df.drop(columns=['id', 'name', 'artist', 'album', 'release_date'])
 
+    # K-Means
+    k_parameter = 4
+
+    model = cluster.KMeans(
+        n_clusters=k_parameter,
+        random_state=0,
+    )
+    model.fit(df_features)
+    labels = model.labels_
+    return [labels.tolist(), df]
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) # only for debugging

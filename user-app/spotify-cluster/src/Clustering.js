@@ -15,13 +15,18 @@ export default function Clustering() {
     }
         
     useEffect(() => {
-        fetchInfo();
+        fetchInfo()
+            .then(_ => {
+                let numberOfClustering = Math.max(...detail[0]) + 1;
+                   
+            });
     }, [])
 
     return (
         <>
             <h1 className="display-1 text-center">Clustering</h1>
-            <p className="text-center text-muted">Starting Clustering {detail && detail.name}</p>
+            <p className="text-center text-muted">Starting Clustering</p>
+            {Math.max(...detail[0]) + 1}
         </>
     )
 }
