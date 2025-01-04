@@ -33,7 +33,7 @@ export default function Clustering() {
                         #{+x[0] + 1}
                         </div>
                         <ul className="list-group list-group-flush">
-                            {detail[x[0]].map(y => <li className="list-group-item">{y.name} - {y.artist}</li>)}
+                            {detail[x[0]].map(y => <a target='_blank' href={'https://open.spotify.com/track/' + y.id}><li className="list-group-item">{y.name} - {y.artist}</li></a>)}
                         </ul>
                     </div>
                 </div>
