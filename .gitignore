@@ -4,6 +4,9 @@ venv
 
 .env
 .cache
+*.pyc
+
+data.csv
 node_modules
 package.json
 package-lock.json

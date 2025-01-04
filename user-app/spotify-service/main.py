@@ -55,7 +55,7 @@ async def playlist():
 @app.post("/api/startclustering/{id}")
 async def start_cluster(id):
     df = get_tracks(id, sp)
-    df_features = df.drop(columns=['id', 'name', 'artist', 'album', 'release_date'])
+    df_features = df.drop(columns=['id', 'name', 'artist', 'album', 'release_year'])
 
     # K-Means
     k_parameter = 4
@@ -78,7 +78,6 @@ async def start_cluster(id):
             'name': df.iloc[i]['name'],
             'album': df.iloc[i]['album'],
             'artist': df.iloc[i]['artist'],
-            'release_date': df.iloc[i]['release_date']
         })
 
     return result
