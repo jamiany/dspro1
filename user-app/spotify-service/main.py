@@ -73,6 +73,7 @@ async def start_cluster(id):
 
     for i, label in enumerate(labels):
         result[label].append({
+            'id': df.iloc[i]['id'],
             'group': label,
             'name': df.iloc[i]['name'],
             'album': df.iloc[i]['album'],
