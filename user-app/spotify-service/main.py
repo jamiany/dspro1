@@ -65,8 +65,22 @@ async def start_cluster(id):
         random_state=0,
     )
     model.fit(df_features)
-    labels = model.labels_
-    return [labels.tolist(), df]
+    labels = model.labels_.tolist()
+
+    result = {}
+    for unique_label in set(labels):
+        result[unique_label] = []
+
+    for i, label in enumerate(labels):
+        result[label].append({
+            'group': label,
+            'name': df.iloc[i]['name'],
+            'album': df.iloc[i]['album'],
+            'artist': df.iloc[i]['artist'],
+            'release_date': df.iloc[i]['release_date']
+        })
+
+    return result
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) # only for debugging
