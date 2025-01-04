@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-from data_preparation.expections import test_set
+from dspro1.data_preparation.expections import test_set
 
 load_dotenv()
 
