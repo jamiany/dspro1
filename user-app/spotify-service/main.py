@@ -52,17 +52,18 @@ async def callback(code):
 async def playlist():
     return sp.current_user_playlists()
 
-@app.post("/api/startclustering/{id}")
-async def start_cluster(id):
+@app.post("/api/startclustering/{id}/{clusters}")
+async def start_cluster(id, clusters):
     df = get_tracks(id, sp)
     df_features = df.drop(columns=['id', 'name', 'artist', 'album', 'release_year'])
 
     # K-Means
-    k_parameter = 4
+    k_parameter = int(clusters)
 
     model = cluster.KMeans(
         n_clusters=k_parameter,
-        random_state=0,
+        max_iter=900,
+        random_state=53,
     )
     model.fit(df_features)
     labels = model.labels_.tolist()

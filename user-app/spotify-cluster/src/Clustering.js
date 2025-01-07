@@ -7,7 +7,7 @@ export default function Clustering() {
     const [detail, setDetail] = useState(null)
 
     const fetchInfo = () => { 
-        return fetch('http://127.0.0.1:8000/api/startclustering/' + params.id, { method: 'POST' }) 
+        return fetch(`http://127.0.0.1:8000/api/startclustering/${params.id}/${params.clusters}`, { method: 'POST' }) 
                 .then((res) => res.json()) 
                 .then((d) => {
                     setDetail(d);

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
 export default function Start() {
-    const [playlist, setPlaylist] = useState(null)
+    const [playlist, setPlaylist] = useState(null);
+    const [numberOfClusters, setNumberOfClusters] = useState(2);
     const navigate = useNavigate();
 
     const fetchInfo = () => { 
@@ -20,7 +21,7 @@ export default function Start() {
 
     function startClutering() {
         let selectedPlaylist = document.getElementById('floatingSelect').value
-        navigate("/clustering/" + selectedPlaylist);
+        navigate(`/clustering/${selectedPlaylist}/${numberOfClusters}`);
     }
 
     return (
@@ -34,6 +35,11 @@ export default function Start() {
                     {playlist && playlist.items.map(i => <option value={i?.id}>{i?.name}</option>)}
                 </select>
                 <label for="floatingSelect">Playlist</label>
+            </div>
+
+            <div className="mt-3">
+                <label for="customRange2" class="form-label">Number of clusters: {numberOfClusters}</label>
+                <input type="range" class="form-range" min="2" max="10" id="range" value={numberOfClusters} onChange={e => setNumberOfClusters(e.target.value)}></input>
             </div>
 
             <div class="d-grid gap-2">
