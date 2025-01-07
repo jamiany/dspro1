@@ -24,7 +24,7 @@ export default function Clustering() {
     return (
         <>
             <h1 className="display-1 text-center">Clustering</h1>
-            <p className="text-center text-muted">Starting Clustering</p>
+            <p className="text-center text-muted">{detail ? 'Clustering successfully completed' : 'Start Clustering'}</p>
             <div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
                 {detail && Object.entries(detail).map(x => 
                     <div className='col'>
