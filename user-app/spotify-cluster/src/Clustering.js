@@ -7,7 +7,7 @@ export default function Clustering() {
     const [detail, setDetail] = useState(null)
 
     const fetchInfo = () => { 
-        return fetch('http://127.0.0.1:8000/api/startclustering/' + params.id, { method: 'POST' }) 
+        return fetch(`http://127.0.0.1:8000/api/startclustering/${params.id}/${params.clusters}`, { method: 'POST' }) 
                 .then((res) => res.json()) 
                 .then((d) => {
                     setDetail(d);
@@ -24,7 +24,7 @@ export default function Clustering() {
     return (
         <>
             <h1 className="display-1 text-center">Clustering</h1>
-            <p className="text-center text-muted">Starting Clustering</p>
+            <p className="text-center text-muted">{detail ? 'Clustering successfully completed' : 'Start Clustering'}</p>
             <div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
                 {detail && Object.entries(detail).map(x => 
                     <div className='col'>
