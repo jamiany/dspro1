@@ -100,3 +100,24 @@ test_set = {
     '6qa36OkEeQqGaWlOcpjlGD': 1,  # Sunday Bloody Sunday : rock pop
     '3Fcfwhm8oRrBvBZ8KGhtea': 2,  # Viva La Vida : rock pop
 }
+
+test_set_constraints = {
+    # '40riOy7x9W7GXjyGp4pjAv': 1,  # Hotel California
+    # '2fuCquhmrzHpu5xcA1ci9x': 1,  # Under Pressure
+    '37ZJ0p5Jm13JPevGcx4SkF': 2,  # Livin' On A Prayer
+    '77NNZQSqzLNqh2A9JhLRkg': 2,  # Don't Stop Believin'
+    '0GjEhVFGZW8afUYGChu3Rr': 3,  # Dancing Queen
+    '7sXTcibuNYugjjYNfgf2kY': 3,  # Felicità
+    # '1MqzIgGsHP4cNjPboevsfq': 4,  # Tourner Dans Le Vide
+    # '34dx8DACTJsc3rsJdaEIQw': 4,  # Papaoutai
+    '4r8lRYnoOGdEi6YyI5OC1o': 5,  # Bye Bye Bye
+    '1QV6tiMFM6fSOKOGLMHYYg': 5,  # Poker Face
+    '2YWjW3wwQIBLNhxWKBQd16': 6,  # Lean On
+    '0TDLuuLlV54CkRRUOahJb4': 6,  # Titanium
+    '2MuWTIM3b0YEAskbeeFE1i': 7,  # Master Of Puppets
+    '5sICkBXVmaCQk5aISGR3x1': 7,  # Enter Sandman
+    '5n8Aro6j1bEGIy7Tpo7FV7': 8,  # Fuck Tha Police
+    '7iL6o9tox1zgHpKUfh9vuC': 8,  # In Da Club
+    # '5w9c2J52mkdntKOmRLeM2m': 9,  # Con Calma
+    # '4sCSUQnWQ6HJsOMjfPicdn': 9,  # Danza Kuduro
+}
