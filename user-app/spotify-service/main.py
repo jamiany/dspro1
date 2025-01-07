@@ -8,6 +8,7 @@ import spotipy
 import random
 from spotipy.oauth2 import SpotifyOAuth
 from sklearn import cluster
+import numpy as np
 
 from dspro1.data_preparation.data_extraction import get_tracks
 
@@ -57,16 +58,12 @@ async def start_cluster(id, clusters):
     df = get_tracks(id, sp)
     df_features = df.drop(columns=['id', 'name', 'artist', 'album', 'release_year'])
 
-    # K-Means
-    k_parameter = int(clusters)
-
-    model = cluster.KMeans(
-        n_clusters=k_parameter,
-        max_iter=900,
-        random_state=53,
-    )
-    model.fit(df_features)
-    labels = model.labels_.tolist()
+    labels = None
+    number_of_clusters = int(clusters)
+    if number_of_clusters < 2:
+        labels = _auto_cluster_songs(df_features).labels_.tolist()
+    else:
+        labels = _cluster_songs(number_of_clusters, df_features).labels_.tolist()
 
     result = {}
     for unique_label in set(labels):
@@ -82,6 +79,30 @@ async def start_cluster(id, clusters):
         })
 
     return result
+
+def _cluster_songs(k_parameter, df_features):
+    max_num_cluster = min(df_features.shape[0], k_parameter)
+    model = cluster.KMeans(
+        n_clusters=max_num_cluster,
+        max_iter=900,
+        random_state=53,
+    )
+    model.fit(df_features)
+    return model
+
+def _auto_cluster_songs(df_features):
+    wcss = []
+    dict = {}
+    max_num_clusters = min(df_features.shape[0], 11)
+    for i in range(2, max_num_clusters):  # Testing cluster numbers from 1 to 10
+        kmeans = _cluster_songs(i, df_features)
+        wcss.append(kmeans.inertia_)
+        dict[i] = kmeans
+    
+    optimal_clusters = np.diff(wcss, 2).argmin() + 2
+    return dict[optimal_clusters]
+    
+    
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) # only for debugging
