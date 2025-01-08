@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="start" element={<Start />} />
-          <Route path="clustering/:id" element={<Clustering />} />
+          <Route path="clustering/:id/:clusters" element={<Clustering />} />
         </Route>
       </Routes>
     </BrowserRouter>
