@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-from dspro1.data_preparation.expections import test_set
+from data_preparation.expections import test_set, test_set_constraints
 
 load_dotenv()
 
@@ -41,11 +41,13 @@ def get_tracks(playlist_name: str, sp=None, test=False) -> pd.DataFrame:
     # add expected labels during testing
     if test:
         if playlist_name == '5Rh7ikX5dteMXfc8tmeBJy':
-            df_expected_label = pd.DataFrame(test_set.items(), columns=['id', 'expected_label'])
+            df_expected_label = pd.DataFrame(test_set.items(), columns=['id', 'expected_labels'])
+            df_constraints = pd.DataFrame(test_set_constraints.items(), columns=['id', 'constraints'])
         else:
             raise ValueError('no expected labels were found')
 
         df_tracks = df_tracks.merge(df_expected_label, on='id', how='left')
+        df_tracks = df_tracks.merge(df_constraints, on='id', how='left')
 
     return df_tracks
 

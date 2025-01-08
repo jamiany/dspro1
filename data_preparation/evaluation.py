@@ -88,9 +88,48 @@ def best_fit_matching_score(expected_labels, labels):
     return total_similarity / len(similarities)
 
 
-if __name__ == '__main__':
-    expectations = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
-    actual       = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
+def constraint_matching_score(constraint_labels, labels):
+    mapping = {}
 
-    print(best_fit_matching_score(expectations, actual))
+    for idx, constraint in enumerate(constraint_labels):
+        if constraint is None or np.isnan(constraint):
+            continue
+
+        if constraint not in mapping:
+            mapping[constraint] = []
+
+        mapping[constraint].append(labels[idx])
+
+    n = len(mapping)
+
+    positive_matches = 0
+    negative_matches = 0
+
+    for constraint, clusters in mapping.items():
+        if len(clusters) != 2:
+            print("WARN: only one cluster mapped to constraint")
+            continue
+
+        if clusters[0] == clusters[1]:
+            positive_matches += 1
+
+        for comparing_constraint, comparing_clusters in mapping.items():
+            if comparing_constraint == constraint:
+                continue
+
+            if len(comparing_clusters) != 2:
+                print("WARN: only one cluster mapped to comparing constraint")
+                continue
+
+            if clusters[0] != comparing_clusters[0] and clusters[0] != comparing_clusters[1] and clusters[1] != comparing_clusters[0] and clusters[1] != comparing_clusters[1]:
+                negative_matches += 1
+
+    return float(positive_matches * (n - 1) + negative_matches) / float(n * 2 * (n - 1))
+
+
+if __name__ == '__main__':
+    constraints = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
+    labels      = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6]
+
+    print(constraint_matching_score(constraints, labels))
 
