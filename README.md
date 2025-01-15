@@ -14,7 +14,7 @@ Data: https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs
 
 ## Getting Started
 
-*Data Engineering part*
+### Data Engineering part
 
 Execute the Python Notebooks in following order:
 
@@ -27,7 +27,7 @@ The generated data.csv should be copied to the backend service folder (user-app/
 
 > Don't use *_2.ipynb: created only for testing purpose
 
-*Real World Application*
+### Real World Application
 
 User Application is under user-app separated in spotify-cluster (frontend: react UI) and spotify-service (backend: python fastapi)
 
