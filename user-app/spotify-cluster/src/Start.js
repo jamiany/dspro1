@@ -2,7 +2,9 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
 export default function Start() {
-    const [playlist, setPlaylist] = useState(null)
+    const [playlist, setPlaylist] = useState(null);
+    const [numberOfClusters, setNumberOfClusters] = useState(2);
+    const [autoCluster, setAutoCluster] = useState(false);
     const navigate = useNavigate();
 
     const fetchInfo = () => { 
@@ -20,7 +22,8 @@ export default function Start() {
 
     function startClutering() {
         let selectedPlaylist = document.getElementById('floatingSelect').value
-        navigate("/clustering/" + selectedPlaylist);
+        let resultClusterParam =  autoCluster ? -1 : numberOfClusters;
+        navigate(`/clustering/${selectedPlaylist}/${resultClusterParam}`);
     }
 
     return (
@@ -34,6 +37,18 @@ export default function Start() {
                     {playlist && playlist.items.map(i => <option value={i?.id}>{i?.name}</option>)}
                 </select>
                 <label for="floatingSelect">Playlist</label>
+            </div>
+
+            <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" checked={autoCluster} id="flexCheckDefault" onChange={() => setAutoCluster(!autoCluster)} />
+                <label class="form-check-label" for="flexCheckDefault">
+                    Automatically select number of clusters
+                </label>
+            </div>
+
+            <div className="mt-3">
+                <label for="customRange2" class="form-label">Number of clusters: {autoCluster ? 'auto' : numberOfClusters}</label>
+                <input type="range" disabled={autoCluster} class="form-range" min="2" max="10" id="range" value={numberOfClusters} onChange={e => setNumberOfClusters(e.target.value)}></input>
             </div>
 
             <div class="d-grid gap-2">
